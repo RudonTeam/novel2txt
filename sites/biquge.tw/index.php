@@ -317,7 +317,11 @@ class coder {
     }
 
     public function dev_get_content_of_menu_page() {
-        $page = file_get_contents($this->base_path_top . 'admin/tmp/content_menu_page.php');
+        $f = $this->base_path_top . 'admin/tmp/content_menu_page.txt';
+        if(!is_file($f)){
+            file_put_contents($f, '');
+        }
+        $page = file_get_contents( $f );
         return $page;
     }
     
@@ -424,6 +428,14 @@ class coder {
 
         error_log('[cURL] End');
 
+        /**
+         * 转码 to utf8
+         */
+        if (stripos($data, 'charset=gbk') !== false) {
+            $data = $this->str_to_utf8( $data );
+        }
+        
+        
         // 显示获得的数据
         if (is_string($data)) {
             $return = $data;

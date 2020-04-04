@@ -22,6 +22,10 @@
             'url' => 'https://www.xinxs.la/',
             'name' => '笔趣阁'
         ),
+        'biqukan.com' => array(
+            'url' => 'https://www.biqukan.com/',
+            'name' => '笔趣看'
+        ),
     );
     
     if(isset($_POST['url'])){
@@ -66,18 +70,18 @@
     </head>
     <body style="padding: 30px 0; text-align: center;">
         <form action="" method="post">
-            <h3 style="margin-bottom: 20px;">
+            <h3 style="margin-bottom: 20px; cursor: default;">
                 小说TXT生成器
             </h3>
             <label for="url">
-                <span>小说大纲（含目录）网址：</span>
+                <span>小说目录大纲网址：</span>
                 <input type="text" id="url" name="url" required="required" placeholder=" https://www.biquge.tw/425_425345/" style="width: 300px;"/>
             </label>
 
             <input type="submit" value="开始分析" style="margin-left: 50px;"/>
         </form>
         
-        <div style="margin-top: 80px;">
+        <div style="margin-top: 80px;cursor: default;">
             目前支持的小说网站：
             <?php 
             foreach ($supported_sites as $d => $info) {

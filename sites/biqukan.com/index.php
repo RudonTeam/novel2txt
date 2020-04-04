@@ -24,7 +24,7 @@ class coder {
     public $pre_ji = '集';
     public $pre_juan = '卷';
     public $pre_zhang = '章';
-    public $site_domain_pre = 'https://www.xinxs.la';
+    public $site_domain_pre = 'https://www.biqukan.com';
     public $novel_url;
     public $novel_title_chinese;
     public $novel_title_english;
@@ -198,6 +198,7 @@ class coder {
             $this->novel_menu_page_dom = str_get_html($html_content);
             
         } else {
+            $html_content = '';
             $this->novel_menu_page_dom = str_get_html($this->dev_get_content_of_menu_page());
         }
         $this->novel_menu_page_content = $this->novel_menu_page_dom->outertext;
@@ -213,7 +214,7 @@ class coder {
         /**
          * <div id="list"> ... <dd> <a style="" href="/425_425345/2233845.html">第一章 驸马饶命</a></dd>  ... </div>
          */
-        $div_wrapper = $this->novel_menu_page_dom->find('div#list', 0); // 只有一个
+        $div_wrapper = $this->novel_menu_page_dom->find('div.listmain', 0); // 只有一个
         $div_wrapper_outertext = $div_wrapper->outertext;
         if (trim($div_wrapper_outertext) == '') {
             $this->error_message('抱歉！无法获取小说章节信息（目录区域），请联系管理员进行升级：<br /><a href="' . $this->novel_url . '" target="_blank">' . $this->novel_url . '</a>');
@@ -258,6 +259,7 @@ class coder {
         }
 
         if ($this->novel_first_chapter_title == '') {
+            file_put_contents($this->base_path_top . 'admin/tmp/error_html.txt', $html_content);
             $this->error_message('抱歉！成功获取小说目录后，找不到起始的第一章，无法解析。');
         }
 
