@@ -562,13 +562,13 @@ class coder {
             
             
             if (!is_file($chapters_folder . $c_file_name_html)) {
-                sleep(5);
+                sleep(3);
                 error_log('Chapter: '.$c_url);
                 $html_code = $this->get_content_by_curl( $c_url );
                 file_put_contents($chapters_folder . $c_file_name_html, $html_code);
                 
                 /* 提取正文 */
-                $preg = '/<div id="content">([\s\S]*?)<\/div>/i';
+                $preg = '/<div id="content"([\s\S]*?)<\/div>/i';
                 preg_match($preg, $html_code, $result);
                 $text_content = '';
                 $eol = PHP_EOL;
